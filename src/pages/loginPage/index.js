@@ -1,8 +1,7 @@
 import React from 'react';
-import ReactDOM from 'react-dom';
 import PropTypes from 'prop-types';
-import ajax from '../../utils/ajax'
 import { Form, Icon, Input, Button } from 'antd';
+import { login, register } from './functions'
 import './index.less';
 const FormItem = Form.Item;
 /**
@@ -12,46 +11,18 @@ class Login extends React.Component {
 
     constructor(props) {
         super(props);
-        this.sock;
-    }
-
-    static contextTypes = {
-        router: PropTypes.object.isRequired
     }
 
     onSubmit = (e) => {
         e.preventDefault();
         this.props.form.validateFields((err, values) => {
-            let { userCode, password } = values;
-            this.login(userCode, password)
+            if (!err) {
+                let { userCode, password } = values;
+                login.call(this, userCode, password)
+            }
         });
     }
 
-    login = (username, password) => {
-        let params = {
-            username: username,
-            password: password
-        };
-        ajax({
-            url: "/login",
-            params: params,
-            success: (response) => {
-                let data = response.data;
-                console.log(data);
-                if (data.result && data.result == 'success') {
-                    if (data.token) {
-                        // 保存数据到sessionStorage
-                        sessionStorage.setItem('token', data.token);
-                        sessionStorage.setItem('username', username);
-                    }
-                    this.props.history.push('/hello', { username: username });
-                }
-            },
-            error: (error) => {
-                console.log(error);
-            }
-        })
-    }
 
     render() {
         const { getFieldDecorator } = this.props.form;
@@ -79,7 +50,7 @@ class Login extends React.Component {
                     >
                         登录
                     </Button>
-                    <Button className='bottom-buttton'>
+                    <Button className='bottom-buttton' onClick={register.bind(this)}>
                         注册
                     </Button>
                 </FormItem>
