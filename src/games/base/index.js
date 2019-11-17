@@ -43,7 +43,6 @@ function createScoket(config, callBack) {
  * @param {*} cards 
  */
 function getCards(cards) {
-	cards = [ { number: '1', color: '1' }, { number: '王', color: '4' }, { number: '10', color: '1' } ];
 	return cards.map((item, index) => {
 		if (index < cards.length - 1) {
 			return <HalfCard number={item.number} color={item.color} />;
