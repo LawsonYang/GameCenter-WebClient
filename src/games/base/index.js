@@ -1,7 +1,12 @@
+import React from 'react';
 import { configInf } from '../../../config';
 import { alterInfo } from '../../utils/showInfo';
+import HalfCard from '../../component/halfcard';
+import Card from '../../component/card';
 const { scoketProxy } = configInf;
-
+/**
+ * 创建scoket连接
+ */
 function createScoket(config, callBack) {
 	let { onConnect, onMeassage, onClose } = config;
 	//从session中获取用户和token
@@ -33,9 +38,19 @@ function createScoket(config, callBack) {
 	return sock;
 }
 
-const constance = {
-	CREATE: 'create ',
-	JOIN: 'join '
-};
+/**
+ * 根据获取卡片信息
+ * @param {*} cards 
+ */
+function getCards(cards) {
+	cards = [ { number: '1', color: '1' }, { number: '王', color: '4' }, { number: '10', color: '1' } ];
+	return cards.map((item, index) => {
+		if (index < cards.length - 1) {
+			return <HalfCard number={item.number} color={item.color} />;
+		} else {
+			return <Card number={item.number} color={item.color} />;
+		}
+	});
+}
 
-export { createScoket, constance };
+export { createScoket, getCards };

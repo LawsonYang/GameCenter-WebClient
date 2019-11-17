@@ -1,7 +1,7 @@
 import React from 'react';
 import { Button, notification } from 'antd';
-import Card from '../../component/card';
-import HalfCard from '../../component/halfcard';
+
+import { getCards } from '../base/index';
 import './index.less';
 import { createScoket } from '../base';
 import { ORDER } from '../base/const';
@@ -72,10 +72,7 @@ export default class GF extends React.Component {
 	}
 
 	getMyCards() {
-		// let myCards = [ { number: '1', color: '1' }, { number: '2', color: '1' }, { number: '3', color: '4' } ];
-		return this.state.myCards.map((item) => {
-			return <HalfCard number={item.number} color={item.color} />;
-		});
+		return getCards(this.state.myCards);
 	}
 
 	getOthers() {

@@ -36,10 +36,12 @@ function showUserCards(params) {
 	let myCards = params.map((param) => {
 		let color = param.split(SPLITCHAR.cardSplit)[0];
 		let number = param.split(SPLITCHAR.cardSplit)[1];
-		return {
-			number,
-			color
-		};
+		if (color && number) {
+			return {
+				number,
+				color
+			};
+		}
 	});
 	this.setState({
 		myCards
