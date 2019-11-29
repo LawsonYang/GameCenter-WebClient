@@ -1,9 +1,9 @@
 import React from 'react';
 import { Button, notification } from 'antd';
 
-import { getCards } from '../base/index';
+// import { getCards } from '../base/index';
 import './index.less';
-import { createScoket } from '../base';
+import { createScoket, getCards, getPersons } from '../base';
 import { ORDER } from '../base/const';
 import { dealMessage, onAddClick, onFollowClick, onGiveOutClick } from './functions';
 
@@ -49,13 +49,6 @@ export default class GF extends React.Component {
      * 获取按钮
      */
 	getButtons() {
-		// return (
-		// 	<div>
-		// 		<Button>弃牌</Button>
-		// 		<Button>跟牌</Button>
-		// 		<Button>加倍</Button>
-		// 	</div>
-		// );
 		return this.state.enableButtons.map((item) => {
 			return this.getButton(item);
 		});
@@ -79,18 +72,21 @@ export default class GF extends React.Component {
 		let others = [
 			{
 				name: '张三',
-				cards: [ { number: '1', color: '1' }, { number: '2', color: '1' }, { number: '3', color: '4' } ]
+				cards: [ {}, {}, {} ]
 			},
-			{}
+			{
+				name: '张三',
+				cards: [ { number: '1', color: '1' }, { number: '2', color: '1' }, { number: '3', color: '4' } ]
+			}
 		];
-		return others.map((item) => {});
+		return getPersons(this.state.otherPlayers);
 	}
 
 	render() {
 		return (
 			<div className="paifen">
-				{/* <div></div> */}
-				<div className="others" />
+				<div className="title">砸金花</div>
+				<div className="others"> {this.getOthers()}</div>
 				<div className="toolsbar">{this.getButtons()}</div>
 				<div className="mycards">
 					{this.getMyCards()}

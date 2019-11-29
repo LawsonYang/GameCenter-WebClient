@@ -3,6 +3,7 @@ import { configInf } from '../../../config';
 import { alterInfo } from '../../utils/showInfo';
 import HalfCard from '../../component/halfcard';
 import Card from '../../component/card';
+import Person from '../../component/person';
 const { scoketProxy } = configInf;
 /**
  * 创建scoket连接
@@ -52,4 +53,12 @@ function getCards(cards) {
 	});
 }
 
-export { createScoket, getCards };
+function getPersons(persons) {
+	if (persons) {
+		return persons.map((item) => {
+			return <Person name={item.name} cards={item.cards} />;
+		});
+	}
+}
+
+export { createScoket, getCards, getPersons };

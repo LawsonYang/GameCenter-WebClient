@@ -5,6 +5,9 @@ import './index.less';
  */
 export default class HalfCard extends React.Component {
 	getColor(color) {
+		if (!color) {
+			return;
+		}
 		switch (color) {
 			case '1':
 				return '♧';
@@ -24,6 +27,9 @@ export default class HalfCard extends React.Component {
 	}
 
 	getNum(number) {
+		if (!number) {
+			return;
+		}
 		switch (number) {
 			case '11':
 				return 'J';
@@ -36,6 +42,9 @@ export default class HalfCard extends React.Component {
 				break;
 			case '14': //王
 				return '王';
+				break;
+			case '0':
+				return;
 				break;
 			default:
 				return number;

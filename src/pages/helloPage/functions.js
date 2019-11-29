@@ -7,6 +7,12 @@ function queryLoginUsers() {
 		success: (response) => {
 			let data = response.data;
 			this.setState({ loginUsers: data });
+			//将所有登陆用户的key和value缓存下来
+			let allUser = {};
+			data.forEach((item) => {
+				allUser[item.userpk] = item.username;
+			});
+			sessionStorage.setItem('allUser', JSON.stringify(allUser));
 		}
 	});
 }

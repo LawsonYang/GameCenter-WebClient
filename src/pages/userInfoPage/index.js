@@ -74,7 +74,7 @@ class UserInfo extends React.Component {
 			}
 		};
 		return (
-			<div className="userInfo">
+			<div className="userPage_userInfo">
 				<Form {...formItemLayout} onSubmit={this.onSubmit.bind(this)}>
 					<Form.Item label="code">
 						{getFieldDecorator('pk', {

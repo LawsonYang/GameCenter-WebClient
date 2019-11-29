@@ -19,7 +19,7 @@ export default class Card extends React.Component {
 				return '❤';
 				break;
 			default:
-				return '';
+				return;
 		}
 	}
 
@@ -36,6 +36,9 @@ export default class Card extends React.Component {
 				break;
 			case '14': //王
 				return '王';
+				break;
+			case '0':
+				return;
 				break;
 			default:
 				return number;

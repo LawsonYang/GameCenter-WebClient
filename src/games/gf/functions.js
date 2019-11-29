@@ -20,6 +20,10 @@ function dealMessage(message) {
 		case RETURNORDER.SHOWUSEROPRS:
 			showUserOprs.call(this, params);
 			break;
+		case RETURNORDER.SHOWOTHERSINFO:
+			showOtherPlays.call(this, params);
+			debugger;
+			break;
 	}
 }
 /**
@@ -54,6 +58,35 @@ function showUserCards(params) {
 function showUserOprs(params) {
 	this.setState({
 		enableButtons: params
+	});
+}
+/**
+ * 显示所有其他玩家
+ * @param {x} params 
+ */
+function showOtherPlays(params) {
+	let otherPlayers = params.map((param) => {
+		let name = param.split(SPLITCHAR.playerNameSplit)[0];
+		let cards = param.split(SPLITCHAR.playerNameSplit)[1];
+		if (name && cards) {
+			let playCards = cards.split(SPLITCHAR.palyerCardSplit).map((param) => {
+				let color = param.split(SPLITCHAR.cardSplit)[0];
+				let number = param.split(SPLITCHAR.cardSplit)[1];
+				if (color && number) {
+					return {
+						number,
+						color
+					};
+				}
+			});
+			return {
+				name,
+				cards: playCards
+			};
+		}
+	});
+	this.setState({
+		otherPlayers: otherPlayers
 	});
 }
 /**
