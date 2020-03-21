@@ -2,7 +2,8 @@
 const ORDER = {
 	CREATE: 'create ',
 	JOIN: 'join ',
-	ORDER: 'order'
+	ORDER: 'order',
+	PREPARE: 'prepare'
 };
 //服务器返回的
 const RETURNORDER = {
@@ -19,9 +20,11 @@ const RETURNORDER = {
 	//显示用户的操作按钮
 	SHOWUSEROPRS: 'SUO',
 	//显示其他用户信息
-	SHOWOTHERSINFO: 'SOI'
+	SHOWOTHERSINFO: 'SOI',
+	//游戏结束
+	GAMEOVER: 'GV'
 };
-
+//消息分隔符
 const SPLITCHAR = {
 	orderSplit: '/',
 	paramSplit: '#',

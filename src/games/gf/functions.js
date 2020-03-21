@@ -22,7 +22,9 @@ function dealMessage(message) {
 			break;
 		case RETURNORDER.SHOWOTHERSINFO:
 			showOtherPlays.call(this, params);
-			debugger;
+			break;
+		case RETURNORDER.GAMEOVER:
+			gameOver.call(this, params);
 			break;
 	}
 }
@@ -107,5 +109,33 @@ function onFollowClick() {
 function onGiveOutClick() {
 	this.sock.send(ORDER.ORDER + ' ' + this.gameCode + ' giveup');
 }
+/**
+ * 准备
+ */
+function onPrePare() {
+	this.sock.send(ORDER.PREPARE + ' ' + this.gameCode);
+	this.setState({
+		isPreparing: true
+	});
+}
+/**
+ * 一局游戏结束
+ */
+function gameOver(params) {
+	let score = params[0];
+	let winUserpk = params[1];
+	let thisUserpk = sessionStorage.getItem('userpk');
+	let message;
+	if (winUserpk == thisUserpk) {
+		message = '恭喜您，游戏获胜，分数+' + score;
+	} else {
+		message = '对不起，游戏失败，分数-' + score + '。胜利玩家：' + winUserpk;
+	}
 
-export { dealMessage, onAddClick, onFollowClick, onGiveOutClick };
+	this.setState({
+		isOver: true,
+		gameOverInfo: message
+	});
+}
+
+export { dealMessage, onAddClick, onFollowClick, onGiveOutClick, onPrePare };

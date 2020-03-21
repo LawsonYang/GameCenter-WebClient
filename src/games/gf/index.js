@@ -5,7 +5,7 @@ import { Button, notification } from 'antd';
 import './index.less';
 import { createScoket, getCards, getPersons } from '../base';
 import { ORDER } from '../base/const';
-import { dealMessage, onAddClick, onFollowClick, onGiveOutClick } from './functions';
+import { dealMessage, onAddClick, onFollowClick, onGiveOutClick, onPrePare } from './functions';
 
 export default class GF extends React.Component {
 	constructor(props) {
@@ -15,8 +15,12 @@ export default class GF extends React.Component {
 		this.gameCode = state && state.gameCode; //当前游戏对局编码
 		this.sock; //当前的连接
 		this.state = {
+			otherPlayers: [],
 			myCards: [],
-			enableButtons: []
+			enableButtons: [],
+			isPreparing: false,
+			isOver: false,
+			gameOverInfo: ''
 		};
 	}
 
@@ -37,7 +41,6 @@ export default class GF extends React.Component {
 				if (this.isCreate) {
 					//创建连接
 					this.sock.send(ORDER.CREATE + 'gf');
-					// sessionStorage.setItem('isScok', true);
 				} else {
 					this.sock.send(ORDER.JOIN + this.gameCode);
 				}
@@ -69,29 +72,78 @@ export default class GF extends React.Component {
 	}
 
 	getOthers() {
-		let others = [
-			{
-				name: '张三',
-				cards: [ {}, {}, {} ]
-			},
-			{
-				name: '张三',
-				cards: [ { number: '1', color: '1' }, { number: '2', color: '1' }, { number: '3', color: '4' } ]
-			}
-		];
 		return getPersons(this.state.otherPlayers);
 	}
+
+	/**
+	 * 未准备
+	 */
+	renderUnPrepared = () => {
+		return (
+			<div className="toolsbar">
+				<Button onClick={onPrePare.bind(this)}>准备</Button>
+			</div>
+		);
+	};
+	/**
+	 * 游戏中
+	 */
+	renderGameing = () => {
+		return (
+			<div>
+				<div className="toolsbar">{this.getButtons()}</div>
+				<div className="mycards">{this.getMyCards()}</div>
+			</div>
+		);
+	};
+
+	/**
+	 * 游戏结束
+	 */
+	renderGameOver = () => {
+		return (
+			<div className="toolsbar">
+				{this.state.gameOverInfo}
+				<Button
+					onClick={() => {
+						//重置页面状态
+						this.scok = null;
+						this.isCreate = true;
+						this.setState(
+							{
+								otherPlayers: [],
+								myCards: [],
+								enableButtons: [],
+								isPreparing: false,
+								isOver: false,
+								gameOverInfo: ''
+							},
+							() => {
+								if (!this.scok) {
+									this.initScoket();
+								}
+							}
+						);
+					}}
+				>
+					再来一局
+				</Button>
+			</div>
+		);
+	};
 
 	render() {
 		return (
 			<div className="paifen">
 				<div className="title">砸金花</div>
-				<div className="others"> {this.getOthers()}</div>
-				<div className="toolsbar">{this.getButtons()}</div>
-				<div className="mycards">
-					{this.getMyCards()}
-					{/* <Card number={'2'} color={'2'} /> */}
-				</div>
+				{this.state.isOver ? (
+					this.renderGameOver()
+				) : (
+					<div>
+						<div className="others"> {this.getOthers()}</div>
+						{this.state.isPreparing ? this.renderGameing() : this.renderUnPrepared()}
+					</div>
+				)}
 			</div>
 		);
 	}
