@@ -3,7 +3,9 @@ const ORDER = {
 	CREATE: 'create ',
 	JOIN: 'join ',
 	ORDER: 'order',
-	PREPARE: 'prepare'
+	PREPARE: 'prepare',
+	//增加系统用户
+	ADDDEFAULT: 'adddefault'
 };
 //服务器返回的
 const RETURNORDER = {

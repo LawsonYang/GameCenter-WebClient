@@ -118,6 +118,10 @@ function onPrePare() {
 		isPreparing: true
 	});
 }
+
+function addDefaultUser() {
+	this.sock.send(ORDER.ADDDEFAULT + ' ' + this.gameCode);
+}
 /**
  * 一局游戏结束
  */
@@ -138,4 +142,4 @@ function gameOver(params) {
 	});
 }
 
-export { dealMessage, onAddClick, onFollowClick, onGiveOutClick, onPrePare };
+export { dealMessage, onAddClick, onFollowClick, onGiveOutClick, onPrePare, addDefaultUser };

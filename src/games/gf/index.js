@@ -5,7 +5,7 @@ import { Button, notification } from 'antd';
 import './index.less';
 import { createScoket, getCards, getPersons } from '../base';
 import { ORDER } from '../base/const';
-import { dealMessage, onAddClick, onFollowClick, onGiveOutClick, onPrePare } from './functions';
+import { dealMessage, onAddClick, onFollowClick, onGiveOutClick, onPrePare, addDefaultUser } from './functions';
 
 export default class GF extends React.Component {
 	constructor(props) {
@@ -82,6 +82,7 @@ export default class GF extends React.Component {
 		return (
 			<div className="toolsbar">
 				<Button onClick={onPrePare.bind(this)}>准备</Button>
+				<Button onClick={addDefaultUser.bind(this)}>增加系统用户</Button>
 			</div>
 		);
 	};
