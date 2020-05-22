@@ -4,6 +4,7 @@ import { BrowserRouter as Router, Route, Link } from 'react-router-dom';
 import LoginPage from './pages/loginPage';
 import UserInfo from './pages/userInfoPage';
 import HelloPage from './pages/helloPage';
+import BpPage from './pages/bpPage';
 import PaiFen from './games/paifen';
 import CMD from './games/cmd';
 import GF from './games/gf';
@@ -21,6 +22,7 @@ class App extends React.Component {
 					<Route path="/paifen" component={PaiFen} />
 					<Route path="/cmd" component={CMD} />
 					<Route path="/gf" component={GF} />
+					<Route path="/bp" component={BpPage} />
 				</div>
 			</Router>
 			// <GF />
